@@ -14,7 +14,7 @@ import { JobBoard } from './pages/JobBoard';
 import { JobDetails } from './pages/JobDetails';
 import { ApplicationTracking } from './pages/ApplicationTracking';
 import { Profile } from './pages/Profile';
-import { Settings } from './pages/Profile';
+import { Settings } from './pages/Settings';
 
 // --- FIXED NAVIGATION COMPONENT ---
 const Navigation = () => {
