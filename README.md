@@ -67,5 +67,27 @@ You may proceed to clone the repository, or download the project folder.
 
 ## Screenshots
 Below are the screenshots of the application in a web browser as follows:
+<img width="1919" height="995" alt="image" src="https://github.com/user-attachments/assets/66675f06-c88b-4c00-9458-92ad1bcdfdf3" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/30f38fdc-6add-4f36-b7b3-09b7669f551c" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/45c3e6a8-9267-4d6b-b229-08cc6a344262" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fe927403-c6e8-4920-bf4c-cb8b5411c318" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/63c3dfe2-6c0a-4447-86da-dfc7e086b108" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e3abfe01-8870-48ca-92f2-6eea0a5ceca7" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/da411226-a7a6-40ae-acda-c3c3242a54a1" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/cfa49d1b-4271-4c91-8c23-db9899feb64e" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6a0c983e-5b5e-43ed-800f-310acc33791e" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5e428d31-83c3-4681-ac14-6bf5e7512805" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7ec36bc4-96f2-4c2a-b2f6-89af68b91687" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1a9a93a7-4d9c-445e-bed4-6e04792bb7f8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bfc30fa3-5606-4f47-96aa-e4d10eea7918" />
+
+
+
+
+
+
+
+
+
 
 
