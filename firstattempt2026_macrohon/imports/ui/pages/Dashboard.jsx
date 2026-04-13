@@ -19,14 +19,14 @@ export const Dashboard = () => {
     <div className="dash-viewport">
       <style>{`
         .dash-viewport {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
+          position: absolute; 
+          top: 0; 
+          left: 260px; /* <--- Matches the sidebar width */
+          width: calc(100% - 260px); /* <--- Subtracts sidebar width from total */
           min-height: 100vh;
-          background-color: #F8FAFC;
-          font-family: 'Inter', sans-serif;
-          overflow-x: hidden;
+          background-color: #F3F4F6; 
+          font-family: 'Inter', sans-serif; 
+          padding-bottom: 50px;
         }
 
         /* --- Full Width Header --- */

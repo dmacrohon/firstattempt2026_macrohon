@@ -14,3 +14,26 @@ Meteor.publish('userData', function () {
     this.ready();
   }
 });
+
+Meteor.methods({
+  'user.updateProfile'(data) {
+    // Basic security check
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized', 'You must be logged in to update your profile.');
+    }
+
+    // Update the Meteor.users collection
+    return Meteor.users.update(this.userId, {
+      $set: {
+        'profile.firstName': data.firstName,
+        'profile.lastName': data.lastName,
+        'profile.headline': data.headline,
+        'profile.course': data.course,
+        'profile.batch': data.batch,
+        'profile.bio': data.bio,
+        'profile.skills': data.skills,
+        'profile.stealthMode': data.stealthMode,
+      }
+    });
+  }
+});

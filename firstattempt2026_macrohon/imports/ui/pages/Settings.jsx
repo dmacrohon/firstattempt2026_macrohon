@@ -1,66 +1,178 @@
-// imports/ui/pages/Settings.jsx
 import React, { useState } from 'react';
 
 export const Settings = () => {
-  const [stealthActive, setStealthActive] = useState(false);
-  const [blockedCompany, setBlockedCompany] = useState('');
-  const [blockedList, setBlockedList] = useState(['Acme Corp']);
+  const [activeTab, setActiveTab] = useState('general');
 
-  const handleAddBlock = () => {
-    if(blockedCompany) {
-      setBlockedList([...blockedList, blockedCompany]);
-      setBlockedCompany('');
-    }
-  };
+  // Toggle States
+  const [toggles, setToggles] = useState({
+    email: true,
+    push: false,
+    jobAlerts: true,
+    stealthMode: false
+  });
 
-  const handleSave = () => {
-    alert('Privacy settings saved successfully.');
+  const handleToggle = (key) => {
+    setToggles(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
-    <div className="job-board-container">
-      <h2>Privacy & Stealth Settings</h2>
-      <p style={{color: 'var(--text-muted)', marginBottom: '2rem'}}>Manage how employers view your profile on The Alumni Hub.</p>
+    <div className="st-viewport">
+      <style>{`
+        .st-viewport {
+          position: absolute; top: 0; left: 260px; width: calc(100% - 260px);
+          min-height: 100vh; background-color: #F3F4F6; font-family: 'Inter', sans-serif;
+        }
 
-      <div className="stealth-toggle" style={{background: '#f4f5f7', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem'}}>
-        <label style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer'}}>
-          <input 
-            type="checkbox" 
-            checked={stealthActive} 
-            onChange={(e) => setStealthActive(e.target.checked)} 
-            style={{width: '20px', height: '20px'}}
-          />
-          Activate Stealth Mode 🥷
-        </label>
-        <p style={{marginLeft: '2.5rem', marginTop: '0.5rem'}}>When active, your profile will be completely hidden from companies you specify below.</p>
+        .st-header {
+          background-color: #00205B; padding: 60px 6% 80px 6%; color: white;
+        }
+        .st-header h1 { font-family: "Times New Roman", serif; font-size: 2.2rem; margin: 0; }
+
+        .st-container {
+          max-width: 1000px; margin: -40px auto 40px auto; padding: 0 24px;
+          display: grid; grid-template-columns: 240px 1fr; gap: 30px;
+        }
+
+        /* Left Settings Menu */
+        .st-menu {
+          background: white; border-radius: 16px; padding: 12px;
+          border: 1px solid #E5E7EB; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+          height: fit-content;
+        }
+        .st-menu-item {
+          padding: 12px 16px; border-radius: 8px; cursor: pointer;
+          font-weight: 500; color: #4B5563; transition: 0.2s; margin-bottom: 4px;
+        }
+        .st-menu-item:hover { background: #F9FAFB; }
+        .st-menu-item.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+
+        /* Right Content Area */
+        .st-card {
+          background: white; border-radius: 16px; padding: 30px;
+          border: 1px solid #E5E7EB; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .st-card h2 { margin: 0 0 20px 0; font-size: 1.2rem; color: #111827; }
+        .st-card p { color: #6B7280; font-size: 0.95rem; line-height: 1.6; }
+
+        /* Forms */
+        .input-group { margin-bottom: 16px; }
+        .input-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-family: inherit; }
+        
+        .btn-update { background: #00205B; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-danger { background: #FEF2F2; color: #EF4444; border: 1px solid #FECACA; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+        /* Toggle Switch CSS */
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #F3F4F6; }
+        .toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .toggle-label { font-weight: 500; color: #111827; }
+        
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #D1D5DB; transition: .3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        input:checked + .slider { background-color: #10B981; /* Green active state */ }
+        input:checked + .slider:before { transform: translateX(20px); }
+      `}</style>
+
+      <div className="st-header">
+        <h1>Settings</h1>
       </div>
 
-      {stealthActive && (
-        <div className="block-list-container" style={{marginBottom: '2rem'}}>
-          <h4>Blocked Companies</h4>
-          <div style={{display: 'flex', gap: '1rem', marginBottom: '1rem'}}>
-            <input 
-              type="text" 
-              className="search-input" 
-              placeholder="Enter company name..." 
-              value={blockedCompany}
-              onChange={e => setBlockedCompany(e.target.value)}
-            />
-            <button className="btn-filter" onClick={handleAddBlock}>Block</button>
+      <div className="st-container">
+        {/* Left Sidebar Menu */}
+        <div className="st-menu">
+          <div 
+            className={`st-menu-item ${activeTab === 'general' ? 'active' : ''}`}
+            onClick={() => setActiveTab('general')}
+          >
+            General Settings
           </div>
-          
-          <ul style={{listStyle: 'none', padding: 0}}>
-            {blockedList.map((comp, idx) => (
-              <li key={idx} style={{padding: '0.8rem', background: '#fff', border: '1px solid #ddd', borderRadius: '6px', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between'}}>
-                {comp}
-                <button onClick={() => setBlockedList(blockedList.filter(c => c !== comp))} style={{background: 'none', border: 'none', color: 'red', cursor: 'pointer'}}>Remove</button>
-              </li>
-            ))}
-          </ul>
+          <div 
+            className={`st-menu-item ${activeTab === 'stealth' ? 'active' : ''}`}
+            onClick={() => setActiveTab('stealth')}
+          >
+            Stealth Mode
+          </div>
         </div>
-      )}
 
-      <button className="btn-apply" onClick={handleSave}>Save Settings</button>
+        {/* Right Content Area */}
+        <div className="st-content">
+          {activeTab === 'general' && (
+            <>
+              {/* Change Password Card */}
+              <div className="st-card">
+                <h2>Change Password</h2>
+                <div className="input-group">
+                  <label>Current Password</label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+                <div className="input-group">
+                  <label>New Password</label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+                <div className="input-group">
+                  <label>Confirm New Password</label>
+                  <input type="password" placeholder="••••••••" />
+                </div>
+                <button className="btn-update">Update Password</button>
+              </div>
+
+              {/* Notifications Card */}
+              <div className="st-card">
+                <h2>Notifications</h2>
+                
+                <div className="toggle-row">
+                  <span className="toggle-label">Email Notifications</span>
+                  <label className="switch">
+                    <input type="checkbox" checked={toggles.email} onChange={() => handleToggle('email')} />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+                
+                <div className="toggle-row">
+                  <span className="toggle-label">Push Notifications</span>
+                  <label className="switch">
+                    <input type="checkbox" checked={toggles.push} onChange={() => handleToggle('push')} />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+
+                <div className="toggle-row">
+                  <span className="toggle-label">Job Alerts</span>
+                  <label className="switch">
+                    <input type="checkbox" checked={toggles.jobAlerts} onChange={() => handleToggle('jobAlerts')} />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Danger Zone */}
+              <div className="st-card" style={{ borderColor: '#FECACA' }}>
+                <h2 style={{ color: '#EF4444' }}>Danger Zone</h2>
+                <p>Once you delete your account, there is no going back. Please be certain.</p>
+                <button className="btn-danger" style={{ marginTop: '10px' }}>Delete Account</button>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'stealth' && (
+            <div className="st-card">
+              <h2>Stealth Mode</h2>
+              <div className="toggle-row" style={{ paddingBottom: '16px', borderBottom: '1px solid #F3F4F6' }}>
+                <span className="toggle-label" style={{ fontSize: '1.1rem' }}>Enable Stealth Mode</span>
+                <label className="switch">
+                  <input type="checkbox" checked={toggles.stealthMode} onChange={() => handleToggle('stealthMode')} />
+                  <span className="slider"></span>
+                </label>
+              </div>
+              <p style={{ marginTop: '16px' }}>
+                Hide your profile from employers. You can still apply for jobs, but your profile won't appear in public searches or candidate recommendations.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
