@@ -29,7 +29,7 @@ Node.js is a dependency required to install MeteorJS into your system.
 This web app is built using the MeteorJS Framework. It is required for the app to function.
 - Open your terminal and type in the following command:
     ```bash
-    npn install -g meteor
+    npm install -g meteor
     ```
 - This will download and install Meteor on your system.
 - Restart your terminal, and verify the installation by running:
