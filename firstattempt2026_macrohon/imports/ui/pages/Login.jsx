@@ -1,7 +1,8 @@
 // imports/ui/pages/Login.jsx
-import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useNavigate } from 'react-router-dom';
+
+import React, { useState, useEffect } from 'react';
 
 // Inline SVGs for pixel-perfect design replication
 const ShieldLogo = () => (
@@ -38,6 +39,21 @@ export const Login = () => {
       else navigate('/dashboard');
     });
   };
+  
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const goOnline = () => setIsOnline(true);
+    const goOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', goOnline);
+    window.addEventListener('offline', goOffline);
+
+    return () => {
+      window.removeEventListener('online', goOnline);
+      window.removeEventListener('offline', goOffline);
+    };
+  }, []);
 
   return (
     <div className="login-page-wrapper">
@@ -48,6 +64,20 @@ export const Login = () => {
         
         <h1 className="login-title">Welcome, Blue Knight!</h1>
         <p className="login-subtitle">Enter your credentials to access the portal</p>
+
+        {!isOnline && (
+          <div style={{
+            background: '#FEF2F2', 
+            color: '#EF4444', 
+            padding: '10px', 
+            borderRadius: '8px',
+            marginBottom: '15px',
+            textAlign: 'center',
+            fontWeight: '600'
+          }}>
+          ⚠️ You are offline. Login is disabled until you reconnect.
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           {error && <div className="auth-error" style={{marginBottom: '1.5rem'}}>{error}</div>}

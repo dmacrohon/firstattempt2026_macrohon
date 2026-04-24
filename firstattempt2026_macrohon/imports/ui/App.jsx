@@ -214,7 +214,7 @@ export const App = () => {
 
             {/* Protected Routes (Require Login) */}
             <Route path="/dashboard" element={
-              <ProtectedRoute><Dashboard /></ProtectedRoute>
+              <Dashboard />
             } />
             
             <Route path="/JobBoard" element={
